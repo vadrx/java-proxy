@@ -7,23 +7,28 @@ import java.net.Socket;
 
 public class Server {
 
-    public static void main(String[] args) {
-        int port = 3345;
+	public static void main(String[] args) {
+		int port = 3345;
 
-        try (ServerSocket serverSocket = new ServerSocket(port)){
-            while (!serverSocket.isClosed())
-            {
-                System.out.println("Server started! Port: " + serverSocket.getLocalPort());
-                Socket clientDialog = serverSocket.accept();
-                System.out.println("New connection! " + serverSocket.getInetAddress() +
-                                    " port " + clientDialog.getPort());
-                System.out.print("Connection accepted.");
-                new ClientHandler(clientDialog).start();
-            }
+		try (ServerSocket serverSocket = new ServerSocket(port)){
+			while (!serverSocket.isClosed())
+			{
+				System.out.println("Server started! Port: " +                   						serverSocket.getLocalPort());
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Wrong open server socket!");
-        }
-    }
+				Socket clientDialog = serverSocket.accept();
+
+				System.out.println("New connection! " + serverSocket.getInetAddress() +
+									"port " + clientDialog.getPort());
+
+				System.out.print("Connection accepted.");
+
+				new ClientHandler(clientDialog).start();
+			}
+		}
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+			System.out.println("Wrong open server socket!");
+		}
+	}
 }
